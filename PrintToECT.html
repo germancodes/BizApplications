@@ -1,0 +1,221 @@
+<!--HTML Code for Print To ECT Form-->
+<!DOCTYPE html>
+
+<head>
+	<title>Print To ECT Form</title>
+	<META http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<!--<xml id = "xmlDoc" src = "PTE_Files/Info.xml"/>-->
+
+	<script type="text/javascript" src="JS_Files//jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="JS_Files/basic_functions.js"></script>
+	<script type="text/javascript" src="JS_Files/Print To ECT Form.js"></script>
+	<script type="text/javascript" src="JS_Files/Print To ECT Form DB Connection.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="PTE_Files/usaaCSS.css"/>
+</head>
+
+<body onload=javascript:hide();>
+
+<table align=center>
+	<TR>
+		<TD align=right class=fields><FONT color=lightgrey size=2><SUB>v1.1 / Jan 19 2016</SUB></FONT></TD>
+	</TR>
+</table>
+
+<table align=Center>
+	<TR align=center height=40>
+		<TD class=fields><img align=center id="usaa" alt="USAA" src ="PTE_Files/eagle4.png"></TD><TD class=fields width=95% align=right><font color=#00365b size=5><B>Print To ECT Form</B></font></TD>
+	</TR>
+</table>
+
+<HR>
+
+<BR>
+
+<Table align=Center>
+	<TR>
+		<TD width=10% class=fields></TD>
+		<TD width=40%>
+			<B>Loan Number:</B>
+		</TD>
+		<TD width=40% class=fields>
+			<input type="text" onchange=javascript:showIt(); id="loanNumber" class=fields maxlength = 10 onBlur = "return IsNumeric(this,10)">
+		</TD>
+		<TD width=10% class=fields></TD>
+	</TR>
+	
+	<TR id=bwrLastNameSection>
+		<TD width=10% class=fields></TD>
+		<TD width=40%>
+			<B>Member Last name:</B>
+		</TD>
+		<TD width=40% class=fields>
+			<input type="text" id="bwrLastName" class=fields maxlength = 50 readonly>
+		</TD>
+		<TD width=10% class=fields></TD>
+	</TR>
+	
+	<TR>
+		<TD width=10% class=fields></TD>
+		<TD width=40%>
+			<B>Document Type:</B>
+		</TD>
+		<TD width=40% class=fields>
+            <SELECT id = "docType" class=fields><OPTION value = "">-- Select --</OPTION><OPTION value = "129304_MT_Aprl_Waiv_Ltr">Appraisal Waiver</OPTION><OPTION value = "129306_MT_NOIA_Pckg">NOIA</OPTION><OPTION value = "129681_MT_Misc_Pkg">Miscellaneous</OPTION></Select>
+		</TD>
+		<TD width=10% class=fields></TD>
+	</TR>
+   
+	<TR id=document>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Document Upload:</B>
+		</TD>
+        <TD width=40% class=fields>
+			<input type="file" onchange=javascript:validateUpload(); id="fileinput" accept="application/pdf"/>
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+
+	<TR id=DocViewerTR>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Document Preview:</B>
+		</TD>
+        <TD width=40% class=fields>
+            <div id=DocViewer align=center>
+                <object height="950" data="file://" fileinput type="application/pdf" width="860">
+                </object>    	
+            </div>
+        </TD>
+        <TD width=10% class=fields></TD>
+    </TR>
+    
+    <TR id=DocCheckOne>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Do you acknowledge that this is the right document for the right member?</B>
+		</TD>
+        <TD width=20% class=fields>
+			<input type="radio" value="Yes" class="checkbox" name="rightDoc1" id="righDoc1_Yes" onclick=javascript:validateResponse(righDoc1_No);>Yes
+            <input type="radio" value="No" class="checkbox" name="rightDoc1" id="righDoc1_No" onclick=javascript:validateResponse(this);>No
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+     <TR id=clickToAddTwo>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+		</TD>
+        <TD width=40% class=fields>
+			<a href="javascript:checkdocumentuploadTwo()">Click to add additional document</a>
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+	<!--Document 2 -->
+	<TR id= documentTwo>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Document Upload:</B>
+		</TD>
+        <TD width=40% class=fields>
+			<input type="file" onchange=javascript:validateUploadTwo(); id="fileinputtwo" accept="application/pdf"/>
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+
+	<TR id=DocViewerTwoTR>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Document Preview:</B>
+		</TD>
+        <TD width=40% class=fields>
+            <div id=DocViewerTwo align=center>
+                <object height="950" data="file://" fileinput type="application/pdf" width="860">
+                </object>    	
+            </div>
+        </TD>
+        <TD width=10% class=fields></TD>
+    </TR>
+    
+    <TR id=DocCheckTwo>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Do you acknowledge that this is the right document for the right member?</B>
+		</TD>
+        <TD width=20% class=fields>
+			<input type="radio" value="Yes" class="checkbox" name="rightDoc2" id="righDoc2_Yes" onclick=javascript:validateResponseTwo(righDoc2_No);>Yes       
+            <input type="radio" value="No" class="checkbox" name="rightDoc2" id="righDoc2_No" onclick=javascript:validateResponseTwo(this);>No    
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+    <TR id=clickToAddThree>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B></B>
+		</TD>
+        <TD width=40% class=fields>
+			<a href="javascript:checkdocumentuploadThree()">Click to add additional document</a>
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+  <!--Document 3-->  
+	<TR id=documentThree>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Document Upload:</B>
+		</TD>
+        <TD width=40% class=fields>
+			<input type="file" onchange=javascript:validateUploadThree(); id="fileinputthree" accept="application/pdf"/>
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+
+	<TR id=DocViewerThreeTR>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Document Preview:</B>
+		</TD>
+        <TD width=40% class=fields>
+            <div id=DocViewerThree align=center>
+                <object height="950" data="file://" fileinput type="application/pdf" width="860">
+                </object>    	
+            </div>
+        </TD>
+        <TD width=10% class=fields></TD>
+    </TR>
+    
+    <TR id=DocCheckThree>
+    	<TD width=10% class=fields>
+        <TD width=40%>
+			<B>Do you acknowledge that this is the right document for the right member?</B>
+		</TD>
+        <TD width=20% class=fields>
+			<input type="radio" value="Yes" class="checkbox" name="rightDoc3" id="righDoc3_Yes" onclick=javascript:validateResponseThree(righDoc3_No);>Yes
+            <input type="radio" value="No" class="checkbox" name="rightDoc3" id="righDoc3_No" onclick=javascript:validateResponseThree(this);>No
+		</TD>
+        <TD width=10% class=fields></TD>               	
+	</TR>
+</table>
+<!--Test-->
+
+<table align=center>
+	<TR>
+		<TD align=middle width=50% class=fields>
+			<IMG onclick=radioValues() alt=Submit src="PTE_Files/submit.png"> 
+			<IMG onclick=resetValues() alt=Reset src="PTE_Files/reset.png">
+		</TD>                	
+	</TR>
+</table>
+
+<HR>
+
+<table align=center>
+	<TR>
+		<TD align=middle class=fields>
+			<FONT color=#00365b size=1><B>USAA Confidential. Internal use only.</B>
+		</TD>
+	</TR>
+</table>
+</body>
+</html>
